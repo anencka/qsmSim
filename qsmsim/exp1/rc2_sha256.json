@@ -1,0 +1,8 @@
+{
+ "Sim1GT/Chi.nii.gz": "45fb61ea669d94c32b807d69c3514284ca12e42e54e796d17525b880d7a66a5d",
+ "Sim1GT/Segmentation.nii.gz": "d42b085289160d1ced28689c484977d5d435d25c7680e2d8ccf1d44aacbb59e0",
+ "Sim1GT/label.mat": "4ae113399109f97164509df13d6e0e846b8dfbaae72c55a13bad6d3e4c885ebe",
+ "Sim1GT/FilestructureForEval.mat": "ed6b3cffa8a20df37af4cc66ac9e802c28d25b75a35d45d3f89c0a4e148b7abf",
+ "Sim1/MaskBrainExtracted.nii.gz": "a46f46d28ba44cdfea3f0db57b3acef36711c428c1c1ea4bbe2e387be114aaa7",
+ "Sim1/Magnitude.nii.gz": "63a89ca677d5f5976192093cb8ef0a55da27da01f0ab785c4ae06d8268f3c702"
+}

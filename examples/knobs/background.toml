@@ -1,0 +1,11 @@
+# Knob: background-field removal.
+# "oracle" uses the true local field (no removal error); SHARP, V-SHARP, PDF and LBV remove the background field
+# of the analytic head (air, bone and shim terms) from the fitted total field.
+# plot: --x snr --y rmse --group background
+# plot: --x snr --y vein_auc --group background
+name = "background"
+base = "toy"
+snr = [20, 100]
+protocols = [{ dte_ms = 5.4, echoes = 5 }]
+backgrounds = ["oracle", "sharp", "vsharp", "pdf", "lbv"]
+inversions = ["medi"]

@@ -1,0 +1,17 @@
+# Knob: how noise is defined across fields ([noise] reference_b0 and gain).
+# reference_b0 defines every field's noise against one field's magnitude, so faster decay at high field costs
+# signal; gain multiplies a field's SNR (here 7 T gets 2x the 3 T SNR, e.g. from coil and field gains).
+# Look for: whether the 7 T advantage survives once both fields share one noise reference.
+# plot: --x snr --y vein_auc --group b0_tesla
+# plot: --x snr --y field_err_median_ppb --group b0_tesla
+name = "snr_reference"
+base = "toy"
+b0_tesla = [3.0, 7.0]
+snr = [10, 40]
+protocols = [{ dte_ms = 2.4, echoes = 11 }]
+backgrounds = ["oracle"]
+inversions = ["medi"]
+
+[noise]
+reference_b0 = 3.0
+gain = { "7" = 2.0 }

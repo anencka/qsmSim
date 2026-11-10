@@ -1,0 +1,47 @@
+# qsmsim-explore spec. Every list is a sweep dimension; the run covers every combination.
+name = "quick"
+
+# Simulation geometry and model: a preset from qsmsim.exp1.config.
+#   "toy"      1 mm master grid, 20 veins, coarse voxels (2-4 mm): minutes on a laptop
+#   "explore"  0.5 mm master grid, full vein network, v1 forward model: 1-2 mm voxels, ~16-32 GB RAM
+#   "exp1_v2"  forward model v2 (every voxel sampled at 0.1 mm) with the sourced tissue table: use a GPU
+base = "toy"
+backend = "cpu"            # "cpu" | "gpu"
+
+phantoms = ["P1"]          # "P1" analytic head with background field; "P3" QSM Challenge 2.0 head (needs the RC2 data)
+b0_tesla = [3.0]           # field strength: tissue R2* and vein phase scale with it
+resolution_mm = [2.0]      # isotropic voxel; a multiple of the preset's master grid
+te1_ms = [4.0]             # first echo time
+snr = [10, 40]             # first-echo SNR in white matter (see [noise])
+replicates = 1             # independent noise draws per condition
+
+# Echo trains: spacing and number of echoes (up to 13).
+protocols = [
+  { dte_ms = 5.4, echoes = 5 },
+  { dte_ms = 2.4, echoes = 11 },
+]
+
+backgrounds = ["oracle"]   # P1 only: "oracle" (true local field), "vsharp", "pdf", "sharp", "lbv". P3 has none.
+inversions = ["tv", "medi"]   # "tkd", "cfl2", "tv", "medi", "tfi" (total field inversion, no background step)
+
+# Regularization values per inversion (threshold for TKD). "grid" = the preset's wide grid
+# (extended at the light end above 3 T). Or give lists: lambda = { medi = [1e-4, 3e-4], tv = [1e-4] }
+lambda = "grid"
+
+# How summary.csv picks a value per condition: rmse, hfen (lowest) or vein_auc, ssim, cnr_0.2-0.3mm (highest), ...
+select = ["rmse", "vein_auc"]
+
+save_maps = false          # NIfTI chi maps of replicate 0 for every chain and value
+
+[noise]
+# SNR is defined against the white-matter first-echo magnitude. By default each field uses its own; set
+# reference_b0 to define every field's noise against one field (as the 3T-vs-7T comparison did), and gain to
+# give a field an SNR multiplier (e.g. 7 T coil and field SNR gain over 3 T).
+# reference_b0 = 3.0
+# gain = { "7" = 2.0 }
+bandwidth_penalty = false  # true: sigma x sqrt(5.4 ms / spacing) (shorter spacing = wider readout bandwidth)
+
+[config]
+# Any qsmsim.exp1.config.Config field, e.g. fewer veins or iterations:
+# veins = { n_per_hemi = 10 }
+# recon_params = { medi = { maxiter = 50 } }

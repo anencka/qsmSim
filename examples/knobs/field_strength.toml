@@ -1,0 +1,13 @@
+# Knob: main field strength B0.
+# Tissue R2* and the venous blood R2* scale with B0 (v1 tissue table: linearly from 3 T), and the field each
+# susceptibility source makes, in Hz, grows with B0. SNR here is defined at each field on its own magnitude, so this
+# isolates the effect of phase contrast and relaxation; see snr_reference.toml for SNR that grows with the field.
+# plot: --x b0_tesla --y vein_auc --group chain
+# plot: --x b0_tesla --y rmse --group chain
+name = "field_strength"
+base = "toy"
+b0_tesla = [1.5, 3.0, 7.0]
+snr = [20]
+protocols = [{ dte_ms = 2.4, echoes = 11 }]
+backgrounds = ["oracle"]
+inversions = ["medi"]

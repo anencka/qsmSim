@@ -1,0 +1,14 @@
+# Knob: signal-to-noise ratio, with noise replicates.
+# SNR is the first-echo white-matter magnitude over the noise sigma. Each replicate is an independent noise draw;
+# summary.csv reports the replicate mean and the min/max at the chosen regularization.
+# Look for: error falls and vein detectability (AUC) rises with SNR, then flattens where the model, not the
+# noise, limits the reconstruction.
+# plot: --x snr --y rmse --group chain
+# plot: --x snr --y vein_auc --group chain
+name = "snr"
+base = "toy"
+snr = [5, 10, 20, 40, 100]
+replicates = 2
+protocols = [{ dte_ms = 5.4, echoes = 5 }]
+backgrounds = ["oracle"]
+inversions = ["tv", "medi"]

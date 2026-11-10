@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+message: "If you use qsmSim, please cite it as below, and cite the QSM Reconstruction Challenge 2.0 papers when you use phantom P3."
+title: "qsmSim: numerical simulation of quantitative susceptibility mapping"
+type: software
+authors:
+  - family-names: Nencka
+    given-names: Andrew S.
+version: 0.2.0
+date-released: 2026-11-09
+license: Apache-2.0
+repository-code: "https://github.com/anencka/qsmSim"
+keywords:
+  - MRI
+  - quantitative susceptibility mapping
+  - QSM
+  - simulation
+  - deep medullary veins
+references:
+  - type: article
+    title: "QSM reconstruction challenge 2.0: A realistic in silico head phantom for MRI data simulation and evaluation of susceptibility mapping procedures"
+    authors:
+      - family-names: Marques
+        given-names: José P.
+      - name: "et al."
+    journal: Magnetic Resonance in Medicine
+    volume: 86
+    start: 526
+    end: 542
+    year: 2021
+    doi: 10.1002/mrm.28716
+  - type: article
+    title: "QSM reconstruction challenge 2.0: Design and report of results"
+    authors:
+      - name: "QSM Challenge 2.0 Organization Committee"
+    journal: Magnetic Resonance in Medicine
+    volume: 86
+    start: 1241
+    end: 1255
+    year: 2021
+    doi: 10.1002/mrm.28754

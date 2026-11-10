@@ -1,0 +1,22 @@
+# Knob: reconstruction settings (variants of [config] recon_params), here solver iterations.
+# They do not change the phantom, so the variants share one preparation. Here: TV and MEDI-like ADMM iterations.
+# Other entries: pdf maxiter, vsharp radii, tfi outer / cg_iters, medi edge_fraction (see qsmsim/pipeline.py).
+# plot: --x snr --y rmse --group variant,chain
+name = "iterations"
+base = "toy"
+snr = [20, 100]
+protocols = [{ dte_ms = 5.4, echoes = 5 }]
+backgrounds = ["oracle"]
+inversions = ["tv", "medi"]
+
+[[variants]]
+name = "iter10"
+config = { recon_params = { tv = { maxiter = 10 }, medi = { maxiter = 10 } } }
+
+[[variants]]
+name = "iter30"
+config = { recon_params = { tv = { maxiter = 30 }, medi = { maxiter = 30 } } }
+
+[[variants]]
+name = "iter100"
+config = { recon_params = { tv = { maxiter = 100 }, medi = { maxiter = 100 } } }

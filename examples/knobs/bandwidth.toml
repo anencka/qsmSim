@@ -1,0 +1,14 @@
+# Knob: readout bandwidth penalty ([noise] bandwidth_penalty).
+# With the penalty, noise sigma grows as sqrt(5.4 ms / echo spacing): a shorter spacing needs a wider readout
+# bandwidth. Compare with echo_trains.toml (no penalty) to see how much of the short-spacing gain survives.
+# plot: --x snr --y field_err_median_ppb --group protocol
+# plot: --x snr --y vein_auc --group protocol
+name = "bandwidth"
+base = "toy"
+snr = [10, 40]
+protocols = [{ dte_ms = 5.4, echoes = 5 }, { dte_ms = 2.4, echoes = 11 }]
+backgrounds = ["oracle"]
+inversions = ["medi"]
+
+[noise]
+bandwidth_penalty = true

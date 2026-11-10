@@ -1,0 +1,11 @@
+# A small check that the GPU backend matches the CPU: run it twice and compare (docker/qsmsim.sh compare).
+name = "cpu_vs_gpu"
+base = "toy"
+phantoms = ["P1"]
+b0_tesla = [3.0]
+resolution_mm = [2.0]
+snr = [20]
+protocols = [ { dte_ms = 5.4, echoes = 5 }, { dte_ms = 2.4, echoes = 11 } ]
+backgrounds = ["oracle", "vsharp", "pdf"]
+inversions = ["tkd", "cfl2", "tv", "medi", "tfi"]
+lambda = "grid"

@@ -1,0 +1,12 @@
+# Knob: the head phantom.
+# P1: analytic head (ellipsoidal tissues, deep grey matter, ventricles, veins, air and bone background field).
+# P2: P1 with stronger, coarser tissue texture. For the QSM Challenge 2.0 head see phantom_p3.toml.
+# plot: --x snr --y rmse --group phantom
+# plot: --x snr --y vein_auc --group phantom
+name = "phantom"
+base = "toy"
+phantoms = ["P1", "P2"]
+snr = [20, 100]
+protocols = [{ dte_ms = 5.4, echoes = 5 }]
+backgrounds = ["oracle"]
+inversions = ["medi"]

@@ -1,0 +1,13 @@
+# Knob: isotropic voxel size.
+# The phantom is built on a finer master grid and averaged (in complex signal) into each voxel size, so partial
+# volume and intravoxel dephasing are modelled. SNR is held fixed per voxel, so this shows resolution alone.
+# Look for: vein detectability drops quickly as voxels grow past the vein diameters.
+# plot: --x res --y vein_auc --group chain
+# plot: --x res --y rmse --group chain
+name = "voxel_size"
+base = "toy"
+resolution_mm = [2.0, 3.0, 4.0]
+snr = [40]
+protocols = [{ dte_ms = 5.4, echoes = 5 }]
+backgrounds = ["oracle"]
+inversions = ["medi"]

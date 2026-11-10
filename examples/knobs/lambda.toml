@@ -1,0 +1,12 @@
+# Knob: regularization strength (threshold for TKD, lambda/alpha for the others).
+# Each value is a separate reconstruction of the same noisy data. Whole-brain error and vein detectability are
+# usually best at different values: compare the two plots, and the two selection rows per chain in summary.csv.
+# plot: --results --x lam --y rmse --group chain
+# plot: --results --x lam --y vein_auc --group chain
+name = "lambda"
+base = "toy"
+snr = [40]
+protocols = [{ dte_ms = 5.4, echoes = 5 }]
+backgrounds = ["oracle"]
+inversions = ["tv", "medi"]
+lambda = { tv = [3e-5, 1e-4, 3e-4, 1e-3, 3e-3], medi = [3e-5, 1e-4, 3e-4, 1e-3, 3e-3] }

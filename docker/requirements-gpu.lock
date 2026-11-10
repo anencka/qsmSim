@@ -1,0 +1,9 @@
+# GPU image: the CPU pins plus CuPy and the CUDA 13.2 libraries as pip
+# wheels (tested with driver 595.91, CUDA 13.2). Only the host driver and the NVIDIA container toolkit are needed.
+numpy==2.3.4
+scipy==1.17.1
+nibabel==5.4.2
+pytest==9.0.2
+cupy-cuda13x[ctk]==14.2.0
+cuda-toolkit[cublas,cudart,cufft,curand,cusolver,cusparse,nvrtc]==13.2.2
+nvidia-nvjitlink==13.2.86

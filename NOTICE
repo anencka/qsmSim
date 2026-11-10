@@ -1,0 +1,50 @@
+qsmSim
+Copyright 2026 Andrew S. Nencka
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+-------------------------------------------------------------------------------
+Adapted material
+
+qsmsim/rc2.py contains a Python port of the evaluation code of the QSM
+Reconstruction Challenge 2.0 (functions4challenge/evaluation/:
+EvaluateRecon_ChallengeFinalMetrics.m and _vs2.m, compute_rmse_detrend_v1.m,
+compute_linearityDeepGM.m, compute_calcification_metrics_v0.m / _v2.m,
+dilatemask.m, Combine_ChallengeSim1Sim2Metrics.m), from
+
+  "QSM Reconstruction Challenge 2.0 - Data and Code Provided to Participants",
+  Zenodo, https://doi.org/10.5281/zenodo.4559541
+
+by the QSM Challenge 2.0 organizers, licensed under the Creative Commons
+Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/).
+Changes: translated from MATLAB to Python/NumPy, indices mapped from 1-based
+inclusive ranges to 0-based slices, LPS headers reoriented as MATLAB's load_nii
+does, and the stage-1 and vs2 variants selected by an argument.
+
+Challenge papers:
+  Marques JP, Meineke J, Milovic C, Bilgic B, et al. QSM reconstruction
+  challenge 2.0: A realistic in silico head phantom for MRI data simulation and
+  evaluation of susceptibility mapping procedures. Magn Reson Med.
+  2021;86:526-542. https://doi.org/10.1002/mrm.28716
+  QSM Challenge 2.0 Organization Committee: Bilgic B, Langkammer C, Marques JP,
+  Meineke J, Milovic C, Schweser F. QSM reconstruction challenge 2.0: Design and
+  report of results. Magn Reson Med. 2021;86:1241-1255.
+  https://doi.org/10.1002/mrm.28754
+
+-------------------------------------------------------------------------------
+Data not included
+
+Phantom P3 is built at run time from the challenge's Sim1 head (CC-BY 4.0),
+which qsmsim-fetch-rc2 downloads from the challenge's public share. Those data
+are not redistributed here; qsmsim/exp1/rc2_sha256.json only lists their
+checksums. Cite the papers above when you use P3.
+
+-------------------------------------------------------------------------------
+Reimplemented methods
+
+The field-mapping, background-removal and dipole-inversion methods (SHARP,
+V-SHARP, PDF, LBV, TKD, CF-L2, TV-ADMM, the MEDI-like morphology prior, TFI)
+were written from their published descriptions, cited in each module; no code
+from the original authors' toolboxes is included. The optional cross-check in
+qsmsim/qsmjl.py and julia/ calls QSM.jl (MIT License,
+https://github.com/kamesy/QSM.jl) as an external package; it is not bundled.

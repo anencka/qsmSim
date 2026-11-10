@@ -1,0 +1,22 @@
+# Echo spacing x echo count at 3 T: does a faster gradient (shorter spacing, more echoes in the same window)
+# sharpen small veins? Full-size analytic head, 1 mm voxels, MEDI-like on the true local field.
+# Resources: ~19 GB RAM to prepare the phantom (once, ~7 min on 8 cores), then ~10 GB per dataset; TV/MEDI ~6 min
+# per reconstruction on one core (fewer with --threads), so this spec is a few hours on a workstation.
+# Lower the preparation memory with [config] mesh_pad = 1.5 (a smaller zero-padding of the field FFT).
+name = "echo_trains"
+base = "explore"
+phantoms = ["P1"]
+b0_tesla = [3.0]
+resolution_mm = [1.0]
+snr = [5, 20, 100]
+replicates = 2
+protocols = [
+  { dte_ms = 5.4, echoes = 5,  name = "standard 5 x 5.4 ms" },
+  { dte_ms = 2.4, echoes = 11, name = "fast 11 x 2.4 ms" },
+  { dte_ms = 2.4, echoes = 5,  name = "fast, few 5 x 2.4 ms" },
+  { dte_ms = 5.4, echoes = 9,  name = "long 9 x 5.4 ms" },
+]
+backgrounds = ["oracle"]
+inversions = ["medi"]
+lambda = { medi = [3e-5, 1e-4, 3e-4, 1e-3] }
+select = ["vein_auc", "rmse"]

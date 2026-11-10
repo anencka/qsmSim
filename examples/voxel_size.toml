@@ -1,0 +1,14 @@
+# Voxel size against vein visibility: 1, 1.5 and 2 mm with a realistic pipeline (V-SHARP or PDF background
+# removal, then TV or MEDI-like), plus total field inversion. Resources as echo_trains.toml at 1 mm.
+name = "voxel_size"
+base = "explore"
+phantoms = ["P1"]
+b0_tesla = [3.0]
+resolution_mm = [1.0, 1.5, 2.0]
+snr = [20, 100]
+replicates = 1
+protocols = [ { dte_ms = 5.4, echoes = 5 } ]
+backgrounds = ["oracle", "vsharp", "pdf"]
+inversions = ["tv", "medi", "tfi"]
+lambda = "grid"
+select = ["vein_auc", "rmse"]

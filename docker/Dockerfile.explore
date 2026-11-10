@@ -1,0 +1,41 @@
+# qsmSim, general-purpose image: the qsmsim package (qsmsim-explore, qsmsim-exp, qsmsim, qsmsim-fetch-rc2) on pinned
+# libraries, linux/amd64. Build with docker/qsmsim.sh build [cpu|gpu] (context: the project root).
+#   BACKEND=cpu  numpy/scipy only
+#   BACKEND=gpu  + CuPy and the CUDA 13 libraries as pip wheels (the host needs only an NVIDIA driver >= 580 and the
+#                NVIDIA container toolkit)
+# The QSM Challenge 2.0 files for phantom P3 are not baked in: mount them at /data/rc2 (docker/qsmsim.sh does).
+FROM python:3.12-slim-bookworm
+ARG BACKEND=cpu
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    OMP_NUM_THREADS=1 \
+    OPENBLAS_NUM_THREADS=1 \
+    MKL_NUM_THREADS=1 \
+    HOME=/tmp \
+    MPLCONFIGDIR=/tmp/matplotlib \
+    CUPY_CACHE_DIR=/tmp/cupy_kernel_cache \
+    QSMSIM_RC2_DIR=/data/rc2
+
+WORKDIR /opt/qsmsim
+COPY docker/requirements-exp1.lock docker/requirements-gpu.lock /tmp/
+RUN set -e; lock=/tmp/requirements-exp1.lock; [ "$BACKEND" = gpu ] && lock=/tmp/requirements-gpu.lock; \
+    pip install --no-cache-dir -r "$lock" matplotlib==3.10.8 && rm /tmp/requirements-*.lock
+
+COPY pyproject.toml README.md LICENSE NOTICE pytest.ini ./
+COPY qsmsim/ qsmsim/
+COPY tests/ tests/
+COPY examples/ examples/
+RUN pip install --no-cache-dir --no-deps . \
+    && if [ "$BACKEND" = gpu ]; then python -c "import cupy, cupyx.scipy.fft, cupyx.scipy.ndimage; \
+print('cupy', cupy.__version__, 'cufft', cupy.cuda.cufft.getVersion())"; fi \
+    && mkdir -p /tmp/cupy_kernel_cache /tmp/matplotlib /data/rc2 && chmod 1777 /tmp/cupy_kernel_cache /tmp/matplotlib \
+    && chmod -R a+rX /opt/qsmsim
+
+# the backend is chosen per run (spec backend = "gpu", qsmsim-explore run --backend gpu, or QSMSIM_BACKEND=gpu), not here,
+# so the image's tests and CPU runs behave the same on a machine without a GPU
+ARG GIT_COMMIT=unknown
+ENV QSMSIM_GIT_COMMIT=${GIT_COMMIT}
+WORKDIR /work
+ENTRYPOINT ["qsmsim-explore"]
+CMD ["--help"]

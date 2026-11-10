@@ -1,0 +1,20 @@
+# Knob: the tissue relaxation table.
+# "v1": one 3 T R2* table scaled linearly with B0. "sourced": per-field tissue R2* and venous-blood R2* from the
+# literature table in qsmsim/phantom.py (tissue_lut, blood_r2s), which has values at 3 T and 7 T.
+# plot: --x b0_tesla --y vein_auc --group variant
+# plot: --x b0_tesla --y rmse --group variant
+name = "tissue_model"
+base = "toy"
+b0_tesla = [3.0, 7.0]
+snr = [20]
+protocols = [{ dte_ms = 2.4, echoes = 11 }]
+backgrounds = ["oracle"]
+inversions = ["medi"]
+
+[[variants]]
+name = "v1"
+config = { tissues = "v1" }
+
+[[variants]]
+name = "sourced"
+config = { tissues = "sourced" }

@@ -1,0 +1,17 @@
+# Knob: echo train (echo spacing x number of echoes).
+# The field map is fitted to every echo with noise weights. Short spacings with many echoes sample the same decay
+# window more densely, which lowers the field error at a fixed per-echo SNR.
+# plot: --x n --y field_err_median_ppb --group dte
+# plot: --x n --y vein_auc --group dte
+name = "echo_trains"
+base = "toy"
+snr = [20]
+protocols = [
+  { dte_ms = 5.4, echoes = 3 },
+  { dte_ms = 5.4, echoes = 5 },
+  { dte_ms = 5.4, echoes = 9 },
+  { dte_ms = 2.4, echoes = 5 },
+  { dte_ms = 2.4, echoes = 11 },
+]
+backgrounds = ["oracle"]
+inversions = ["medi"]

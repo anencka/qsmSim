@@ -1,0 +1,20 @@
+# Knob: the forward model that turns the susceptibility phantom into a multi-echo signal.
+# "v1": tissue on the master grid with sub-samples only near veins (fast, CPU). "v2": every voxel sampled on a fine
+# grid in tiles, veins refined further (slow on the CPU, use a GPU at full size). Here both run on the toy grid, v2 at
+# a coarse 1/3 mm fine grid so the demo finishes in minutes on a CPU (production v2 uses 0.1 mm).
+# plot: --x snr --y rmse --group variant
+# plot: --x snr --y vein_auc --group variant
+name = "forward_model"
+base = "toy"
+snr = [20, 100]
+protocols = [{ dte_ms = 5.4, echoes = 5 }]
+backgrounds = ["oracle"]
+inversions = ["medi"]
+
+[[variants]]
+name = "v1"
+config = { forward = "v1" }
+
+[[variants]]
+name = "v2"
+config = { forward = "v2", fine_mm = 0.3333333333333333 }

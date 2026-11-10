@@ -1,0 +1,24 @@
+# Knob: the deep medullary vein network (variants of [config] veins).
+# Veins grow outward from the ventricle walls; each starts at a diameter drawn from diam_start_mm and tapers.
+# Other settings: n_per_hemi (count), length_mm, taper, chi_ppm and r2s (blood), perp_bias (preference for veins
+# perpendicular to B0). Per-diameter metrics are in the cnr_*, moment_ratio_* and peak_ratio_* columns.
+# plot: --x snr --y vein_auc --group variant
+# plot: --x snr --y vein_moment_ratio --group variant
+name = "veins"
+base = "toy"
+snr = [20, 100]
+protocols = [{ dte_ms = 5.4, echoes = 5 }]
+backgrounds = ["oracle"]
+inversions = ["medi"]
+
+[[variants]]
+name = "thin"
+config = { veins = { diam_start_mm = [0.1, 0.25] } }
+
+[[variants]]
+name = "standard"
+config = { veins = { diam_start_mm = [0.2, 0.5] } }
+
+[[variants]]
+name = "thick"
+config = { veins = { diam_start_mm = [0.4, 0.8] } }

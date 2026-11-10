@@ -1,0 +1,16 @@
+# The QSM Challenge 2.0 head (P3) with deep medullary veins on forward model v2 (every voxel sampled at 0.1 mm,
+# sourced relaxation per field) - the model behind the refined results. Needs a CUDA GPU (tested: 24 GB A5000),
+# ~14 GB host RAM and the challenge data (qsmsim-fetch-rc2 --p3). Preparation ~16 min per field on the A5000.
+name = "p3_gpu"
+base = "exp1_v2"
+backend = "gpu"
+phantoms = ["P3"]
+b0_tesla = [3.0]
+resolution_mm = [1.0]
+snr = [5, 20, 100]
+replicates = 1
+protocols = [ { dte_ms = 5.4, echoes = 5 }, { dte_ms = 2.4, echoes = 11 } ]
+inversions = ["medi", "tv"]          # P3 has no background field: the fitted field is inverted directly
+lambda = { medi = [3e-5, 1e-4, 3e-4, 1e-3], tv = [3e-5, 1e-4, 3e-4, 1e-3] }
+select = ["vein_auc", "rmse"]
+save_maps = true

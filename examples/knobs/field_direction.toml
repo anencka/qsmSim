@@ -1,0 +1,23 @@
+# Knob: head orientation relative to B0 (variants of [config] b0_dir).
+# b0_dir is a unit vector in array axes. The phantom, the forward model and every reconstruction use the same
+# direction, so this shows how orientation changes the field pattern of the (mostly in-plane) veins.
+# plot: --x snr --y vein_auc --group variant
+# plot: --x snr --y rmse --group variant
+name = "field_direction"
+base = "toy"
+snr = [20, 100]
+protocols = [{ dte_ms = 5.4, echoes = 5 }]
+backgrounds = ["oracle"]
+inversions = ["medi"]
+
+[[variants]]
+name = "tilt0"
+config = { b0_dir = [0.0, 0.0, 1.0] }
+
+[[variants]]
+name = "tilt20"
+config = { b0_dir = [0.0, 0.342, 0.940] }
+
+[[variants]]
+name = "tilt45"
+config = { b0_dir = [0.0, 0.707, 0.707] }

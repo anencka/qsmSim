@@ -1,0 +1,13 @@
+# allowlist: only what the image needs
+*
+!pyproject.toml
+!README.md
+!LICENSE
+!NOTICE
+!pytest.ini
+!examples/**
+!qsmsim/**
+!tests/**
+!docker/requirements-exp1.lock
+!docker/requirements-gpu.lock
+**/__pycache__

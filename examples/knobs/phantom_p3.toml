@@ -1,0 +1,12 @@
+# Knob: the QSM Reconstruction Challenge 2.0 head (P3) with the simulated vein network added.
+# Needs the challenge's Sim1 files (CC-BY 4.0): qsmsim-fetch-rc2 --p3 (or docker/qsmsim.sh fetch-rc2).
+# P3 has no background field, so the reconstruction starts from the local field ("oracle" here means just that).
+# plot: --x snr --y rmse --group chain
+# plot: --x snr --y vein_auc --group chain
+name = "phantom_p3"
+base = "toy"
+phantoms = ["P3"]
+snr = [20, 100]
+protocols = [{ dte_ms = 5.4, echoes = 5 }]
+backgrounds = ["oracle"]
+inversions = ["tv", "medi"]

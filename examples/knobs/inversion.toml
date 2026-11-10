@@ -1,0 +1,12 @@
+# Knob: dipole inversion.
+# TKD (thresholded k-space division), CF-L2 (closed-form Tikhonov on gradients), TV (ADMM), MEDI-like (TV with a
+# magnitude-edge prior) after PDF background removal, and TFI (total field inversion: background and tissue in one
+# step). Each is shown at the regularization value that minimizes RMSE on its grid.
+# plot: --x snr --y rmse --group chain
+# plot: --x snr --y vein_auc --group chain --selected-by vein_auc
+name = "inversion"
+base = "toy"
+snr = [20, 100]
+protocols = [{ dte_ms = 5.4, echoes = 5 }]
+backgrounds = ["pdf"]
+inversions = ["tkd", "cfl2", "tv", "medi", "tfi"]

@@ -1,0 +1,11 @@
+# Knob: first echo time.
+# Later echoes accumulate more phase per unit susceptibility but lose magnitude to T2* decay.
+# plot: --x te1 --y field_err_median_ppb --group chain
+# plot: --x te1 --y vein_auc --group chain
+name = "te1"
+base = "toy"
+te1_ms = [2.0, 4.0, 8.0]
+snr = [20]
+protocols = [{ dte_ms = 5.4, echoes = 5 }]
+backgrounds = ["oracle"]
+inversions = ["medi"]

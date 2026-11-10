@@ -1,0 +1,5 @@
+# Experiment 1 container: exact versions (developed and tested with these)
+numpy==2.3.4
+scipy==1.17.1
+nibabel==5.4.2
+pytest==9.0.2
